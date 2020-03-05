@@ -3,6 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import * as serviceWorker from './serviceWorker';
 
+const initGrid = () => {
+  return [
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+          [0, 0, 0, 0, 0, 0, 0, 0, 0],
+        ]
+};
+
 class GridCell extends React.Component {
   render() {
     let { cellValue, addCellValue, row, col } = this.props;
@@ -24,22 +38,14 @@ class GridRow extends React.Component {
 class SudokuGrid extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      grid:
-        [
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-          [0, 0, 0, 0, 0, 0, 0, 0, 0],
-        ]
-    };
+    this.state = {grid: initGrid()};
     this.addCellValue = this.addCellValue.bind(this);
     this.solve = this.solve.bind(this);
+    this.reset = this.reset.bind(this);
+  }
+
+  reset() {
+    this.setState({grid: initGrid()})
   }
 
   addCellValue(row, col) {
@@ -64,7 +70,7 @@ class SudokuGrid extends React.Component {
       <div>
         {grid}
         <button type="button" onClick={this.solve}>解く</button>
-        <button type="button">リセット</button>
+        <button type="button" onClick={this.reset}>リセット</button>
       </div>
     );
   }
